@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ServicesCarousel } from "./ServicesCarousel";
 import { FeaturesCarousel } from "./FeaturesCarousel";
+import { ReviewsCarousel } from "./ReviewsCarousel";
 import {
   Truck,
   Phone,
@@ -297,6 +298,21 @@ export function LandingPage() {
         </div>
       </section>
 
+      {/* Customer Reviews Section */}
+      <section id="reviews" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Customer Reviews</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              See what our satisfied customers have to say about our service
+            </p>
+          </div>
+
+          <ReviewsCarousel />
+        </div>
+      </section>
+
       {/* Contact/CTA Section */}
       <section id="contact" className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -399,9 +415,9 @@ export function LandingPage() {
               <h4 className="text-lg font-bold mb-4">Quick Links</h4>
               <ul className="space-y-2 text-blue-200">
                 <li><a href="#services" className="hover:text-yellow-400 transition-colors">Services</a></li>
+                <li><a href="#reviews" className="hover:text-yellow-400 transition-colors">Reviews</a></li>
                 <li><a href="#about" className="hover:text-yellow-400 transition-colors">About Us</a></li>
                 <li><a href="#contact" className="hover:text-yellow-400 transition-colors">Contact</a></li>
-                <li><a href="#pricing" className="hover:text-yellow-400 transition-colors">Pricing</a></li>
               </ul>
             </div>
             <div>
