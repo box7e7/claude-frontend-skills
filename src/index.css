@@ -53,6 +53,42 @@
   }
 }
 
+/* Hero background zoom IN/OUT animation - each image visible for 10s out of 30s total */
+@keyframes heroZoom {
+  /* 0s: Start - visible at normal scale */
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  /* 5s: Zoom IN complete - much slower (16.67% of 30s) */
+  16.67% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  /* 9.5s: Zoom OUT complete - much slower (31.67% of 30s) */
+  31.67% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  /* 10s: Fade out (33.33% of 30s) */
+  33.33% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  /* 10-30s: Hidden */
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+/* Ensure hero slideshow images start hidden and let animation control visibility */
+.hero-slide {
+  opacity: 0;
+  transform: scale(1);
+  /* Animation will override opacity when it starts */
+}
+
 .animate-fadeIn {
   animation: fadeIn 1s ease-out;
 }
@@ -67,6 +103,12 @@
 
 .animate-bounce-slow {
   animation: bounceInteractive 3s ease-in-out infinite;
+}
+
+/* Background slideshow - each image uses the same animation with different delay */
+.bg-slideshow-item {
+  animation: zoomFadeSlide var(--slideshow-duration) ease-in-out infinite;
+  animation-delay: var(--slideshow-delay);
 }
 
 @media (prefers-reduced-motion) {

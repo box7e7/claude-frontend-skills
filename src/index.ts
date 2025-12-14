@@ -3,8 +3,17 @@ import index from "./index.html";
 
 const server = serve({
   routes: {
-    // Serve index.html for all unmatched routes.
-    "/*": index,
+    // Serve static images
+    "/images/*": async (req) => {
+      const url = new URL(req.url);
+      const filepath = `.${url.pathname}`;
+      const file = Bun.file(filepath);
+
+      if (await file.exists()) {
+        return new Response(file);
+      }
+      return new Response("Not Found", { status: 404 });
+    },
 
     "/api/hello": {
       async GET(req) {
@@ -27,6 +36,47 @@ const server = serve({
         message: `Hello, ${name}!`,
       });
     },
+
+    // API endpoint to list all images in the images folder
+    "/api/images": async () => {
+      const imagesDir = "./images";
+      const glob = new Bun.Glob("*.{png,jpg,jpeg,gif,webp}");
+      const images: string[] = [];
+
+      for await (const file of glob.scan(imagesDir)) {
+        images.push(`/images/${file}`);
+      }
+
+      return Response.json({ images });
+    },
+
+    // API endpoint to list all videos in the videos folder
+    "/api/videos": async () => {
+      const videosDir = "./videos";
+      const glob = new Bun.Glob("*.{mp4,webm,mov,avi}");
+      const videos: string[] = [];
+
+      for await (const file of glob.scan(videosDir)) {
+        videos.push(`/videos/${file}`);
+      }
+
+      return Response.json({ videos });
+    },
+
+    // Serve static videos
+    "/videos/*": async (req) => {
+      const url = new URL(req.url);
+      const filepath = `.${url.pathname}`;
+      const file = Bun.file(filepath);
+
+      if (await file.exists()) {
+        return new Response(file);
+      }
+      return new Response("Not Found", { status: 404 });
+    },
+
+    // Serve index.html for all unmatched routes.
+    "/*": index,
   },
 
   development: process.env.NODE_ENV !== "production" && {
