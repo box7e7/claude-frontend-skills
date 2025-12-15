@@ -220,10 +220,11 @@ export function LandingPage() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-white">
+      <section id="services" className="py-20 bg-white relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Our Services</h2>
+            <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Complete roadside assistance solutions to get you back on the road quickly
             </p>
@@ -231,13 +232,33 @@ export function LandingPage() {
 
           <ServicesCarousel />
         </div>
+        {/* Bottom gradient fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-slate-50/30 pointer-events-none"></div>
+      </section>
+
+      {/* Customer Reviews Section */}
+      <section id="reviews" className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 relative">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Customer Reviews</h2>
+            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              See what our satisfied customers have to say about our service
+            </p>
+          </div>
+
+          <ReviewsCarousel />
+        </div>
+        {/* Decorative separator */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
       </section>
 
       {/* Features and Benefits Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-blue-100">
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Why Choose Momentum?</h2>
+            <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               We're committed to providing the fastest and most reliable roadside assistance
             </p>
@@ -296,29 +317,17 @@ export function LandingPage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Customer Reviews Section */}
-      <section id="reviews" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Customer Reviews</h2>
-            <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              See what our satisfied customers have to say about our service
-            </p>
-          </div>
-
-          <ReviewsCarousel />
-        </div>
+        {/* Bottom decorative border */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-300 to-transparent"></div>
       </section>
 
       {/* Contact/CTA Section */}
-      <section id="contact" className="py-20 bg-background">
+      <section id="contact" className="py-20 bg-gradient-to-br from-gray-50 via-slate-50 to-white relative">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Get in Touch</h2>
+              <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
               <p className="text-xl text-muted-foreground">
                 Need immediate assistance or have questions? We're here to help!
               </p>
@@ -399,10 +408,15 @@ export function LandingPage() {
             </Card>
           </div>
         </div>
+        {/* Decorative separator before footer */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900"></div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-blue-900 text-white py-12">
+      <footer className="bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white py-12 relative border-t-2 border-blue-700/50">
+        {/* Decorative top accent */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
