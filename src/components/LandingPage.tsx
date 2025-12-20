@@ -21,7 +21,6 @@ export function LandingPage() {
   const [backgroundMode, setBackgroundMode] = useState<'images' | 'video' | null>(null);
   const [heroImages, setHeroImages] = useState<string[]>([]);
   const [heroVideos, setHeroVideos] = useState<string[]>([]);
-  const [imagesLoaded, setImagesLoaded] = useState<Set<number>>(new Set([0])); // Preload first image only
   const durationPerImage = 10; // seconds each image is visible
 
   // Randomly choose between images or video on mount
@@ -63,27 +62,17 @@ export function LandingPage() {
   const imageCount = heroImages.length;
   const totalDuration = imageCount > 0 ? durationPerImage * imageCount : 10; // total cycle time
 
-  // Lazy load remaining images after first one
+  // Preload all images immediately for smooth animation (they're optimized WebP now)
   useEffect(() => {
-    if (backgroundMode === 'images' && heroImages.length > 1) {
-      // Load second image after 2 seconds
-      const timer1 = setTimeout(() => {
-        setImagesLoaded(prev => new Set([...prev, 1]));
-      }, 2000);
-
-      // Load third image after 5 seconds
-      const timer2 = setTimeout(() => {
-        if (heroImages.length > 2) {
-          setImagesLoaded(prev => new Set([...prev, 2]));
-        }
-      }, 5000);
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
+    if (backgroundMode === 'images' && heroImages.length > 0) {
+      console.log(`🔄 Preloading ${heroImages.length} optimized WebP images...`);
+      heroImages.forEach((imageUrl, index) => {
+        const img = new Image();
+        img.src = imageUrl;
+        img.onload = () => console.log(`✅ Preloaded image ${index + 1}/${heroImages.length}: ${imageUrl}`);
+      });
     }
-  }, [backgroundMode, heroImages.length]);
+  }, [backgroundMode, heroImages]);
 
   // Dynamically generate keyframes based on actual number of images
   useEffect(() => {
@@ -148,21 +137,20 @@ export function LandingPage() {
       <section className="relative overflow-hidden bg-slate-900 min-h-screen flex items-center">
         {/* Zooming Background Images - Auto-loaded from /images folder */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* IMAGE MODE: Zoom in/out slideshow with lazy loading */}
+          {/* IMAGE MODE: Zoom in/out slideshow - all images preloaded */}
           {backgroundMode === 'images' && heroImages.length > 0 && (
             heroImages.map((imageUrl, index) => {
               const delay = index * durationPerImage;
-              const shouldLoad = imagesLoaded.has(index);
 
               return (
                 <div
                   key={imageUrl}
                   className="absolute inset-0 bg-cover bg-center hero-slide"
                   style={{
-                    backgroundImage: shouldLoad ? `url('${imageUrl}')` : 'none',
+                    backgroundImage: `url('${imageUrl}')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    animation: shouldLoad ? `heroZoomDynamic ${totalDuration}s ease-in-out infinite` : 'none',
+                    animation: `heroZoomDynamic ${totalDuration}s ease-in-out infinite`,
                     animationDelay: `${delay}s`,
                   } as React.CSSProperties}
                 />

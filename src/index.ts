@@ -58,25 +58,16 @@ const server = serve({
     // API endpoint to list all images in the images folder (with short cache)
     "/api/images": async () => {
       const imagesDir = "./images";
-      // Prioritize WebP format for better performance
-      const webpGlob = new Bun.Glob("*.webp");
-      const fallbackGlob = new Bun.Glob("*.{png,jpg,jpeg,gif}");
+      // Serve optimized WebP images (sorted for consistent order)
+      const glob = new Bun.Glob("*.webp");
       const images: string[] = [];
-      const webpImages = new Set<string>();
 
-      // First, collect all WebP images
-      for await (const file of webpGlob.scan(imagesDir)) {
+      for await (const file of glob.scan(imagesDir)) {
         images.push(`/images/${file}`);
-        webpImages.add(file.replace('.webp', ''));
       }
 
-      // Then add fallback images only if no WebP version exists
-      for await (const file of fallbackGlob.scan(imagesDir)) {
-        const baseName = file.replace(/\.(png|jpg|jpeg|gif)$/, '');
-        if (!webpImages.has(baseName)) {
-          images.push(`/images/${file}`);
-        }
-      }
+      // Sort images alphabetically for consistent slideshow order
+      images.sort();
 
       const response = Response.json({ images });
       return addCacheHeaders(response, 3600); // 1 hour cache
