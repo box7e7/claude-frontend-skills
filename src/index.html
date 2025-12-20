@@ -4,9 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Momentum Towing & Roadside Services - Fast, reliable 24/7 roadside assistance and towing services" />
+
+    <!-- Resource hints for faster loading -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="preconnect" href="//fonts.googleapis.com" crossorigin />
+
+    <!-- Preload critical resources -->
+    <link rel="modulepreload" href="./frontend.tsx" />
+
     <link rel="icon" type="image/svg+xml" href="./logo.svg" />
     <title>Momentum Towing & Roadside Services | 24/7 Emergency Assistance</title>
-    <script type="module" src="./frontend.tsx" async></script>
+    <script type="module" src="./frontend.tsx"></script>
   </head>
   <body>
     <div id="root"></div>

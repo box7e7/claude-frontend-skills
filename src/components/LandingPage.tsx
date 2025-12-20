@@ -21,6 +21,7 @@ export function LandingPage() {
   const [backgroundMode, setBackgroundMode] = useState<'images' | 'video' | null>(null);
   const [heroImages, setHeroImages] = useState<string[]>([]);
   const [heroVideos, setHeroVideos] = useState<string[]>([]);
+  const [imagesLoaded, setImagesLoaded] = useState<Set<number>>(new Set([0])); // Preload first image only
   const durationPerImage = 10; // seconds each image is visible
 
   // Randomly choose between images or video on mount
@@ -61,6 +62,28 @@ export function LandingPage() {
 
   const imageCount = heroImages.length;
   const totalDuration = imageCount > 0 ? durationPerImage * imageCount : 10; // total cycle time
+
+  // Lazy load remaining images after first one
+  useEffect(() => {
+    if (backgroundMode === 'images' && heroImages.length > 1) {
+      // Load second image after 2 seconds
+      const timer1 = setTimeout(() => {
+        setImagesLoaded(prev => new Set([...prev, 1]));
+      }, 2000);
+
+      // Load third image after 5 seconds
+      const timer2 = setTimeout(() => {
+        if (heroImages.length > 2) {
+          setImagesLoaded(prev => new Set([...prev, 2]));
+        }
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+  }, [backgroundMode, heroImages.length]);
 
   // Dynamically generate keyframes based on actual number of images
   useEffect(() => {
@@ -125,19 +148,21 @@ export function LandingPage() {
       <section className="relative overflow-hidden bg-slate-900 min-h-screen flex items-center">
         {/* Zooming Background Images - Auto-loaded from /images folder */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* IMAGE MODE: Zoom in/out slideshow */}
+          {/* IMAGE MODE: Zoom in/out slideshow with lazy loading */}
           {backgroundMode === 'images' && heroImages.length > 0 && (
             heroImages.map((imageUrl, index) => {
               const delay = index * durationPerImage;
+              const shouldLoad = imagesLoaded.has(index);
+
               return (
                 <div
                   key={imageUrl}
                   className="absolute inset-0 bg-cover bg-center hero-slide"
                   style={{
-                    backgroundImage: `url('${imageUrl}')`,
+                    backgroundImage: shouldLoad ? `url('${imageUrl}')` : 'none',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    animation: `heroZoomDynamic ${totalDuration}s ease-in-out infinite`,
+                    animation: shouldLoad ? `heroZoomDynamic ${totalDuration}s ease-in-out infinite` : 'none',
                     animationDelay: `${delay}s`,
                   } as React.CSSProperties}
                 />
@@ -145,13 +170,15 @@ export function LandingPage() {
             })
           )}
 
-          {/* VIDEO MODE: Looping video background */}
+          {/* VIDEO MODE: Looping video background with lazy loading */}
           {backgroundMode === 'video' && heroVideos.length > 0 && (
             <video
               autoPlay
               loop
               muted
               playsInline
+              loading="lazy"
+              preload="metadata"
               className="absolute inset-0 w-full h-full object-cover"
               src={heroVideos[0]}
             >
