@@ -21,6 +21,7 @@ export function LandingPage() {
   const [backgroundMode, setBackgroundMode] = useState<'images' | 'video' | null>(null);
   const [heroImages, setHeroImages] = useState<string[]>([]);
   const [heroVideos, setHeroVideos] = useState<string[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const durationPerImage = 10; // seconds each image is visible
 
   // Randomly choose between images or video on mount
@@ -29,7 +30,11 @@ export function LandingPage() {
     const randomMode = Math.random() < 0.5 ? 'images' : 'video';
     setBackgroundMode(randomMode);
 
-    console.log(`🎲 Random hero mode selected: ${randomMode}`);
+    console.log('═══════════════════════════════════════════════════════');
+    console.log('🎲 HERO BACKGROUND MODE SELECTION');
+    console.log('═══════════════════════════════════════════════════════');
+    console.log(`✨ Selected Mode: ${randomMode.toUpperCase()}`);
+    console.log('───────────────────────────────────────────────────────');
 
     // Fetch appropriate content based on selected mode
     if (randomMode === 'images') {
@@ -37,7 +42,11 @@ export function LandingPage() {
         .then(res => res.json())
         .then(data => {
           if (data.images && data.images.length > 0) {
-            console.log(`🖼️  Detected ${data.images.length} hero images:`, data.images);
+            console.log(`🖼️  Loading ${data.images.length} optimized WebP images for slideshow:`);
+            data.images.forEach((img: string, index: number) => {
+              console.log(`   ${index + 1}. ${img}`);
+            });
+            console.log('═══════════════════════════════════════════════════════');
             setHeroImages(data.images);
           } else {
             console.warn('⚠️  No images found in /images folder');
@@ -49,8 +58,21 @@ export function LandingPage() {
         .then(res => res.json())
         .then(data => {
           if (data.videos && data.videos.length > 0) {
-            console.log(`🎥 Detected ${data.videos.length} hero videos:`, data.videos);
+            console.log(`🎥 Available videos: ${data.videos.length}`);
+            data.videos.forEach((vid: string, index: number) => {
+              console.log(`   ${index + 1}. ${vid}`);
+            });
             setHeroVideos(data.videos);
+
+            // Randomly select one video from available videos
+            const randomIndex = Math.floor(Math.random() * data.videos.length);
+            const chosenVideo = data.videos[randomIndex];
+            setSelectedVideo(chosenVideo);
+
+            console.log('───────────────────────────────────────────────────────');
+            console.log(`🎬 PLAYING VIDEO ${randomIndex + 1}/${data.videos.length}:`);
+            console.log(`   📹 ${chosenVideo}`);
+            console.log('═══════════════════════════════════════════════════════');
           } else {
             console.warn('⚠️  No videos found in /videos folder');
           }
@@ -65,11 +87,11 @@ export function LandingPage() {
   // Preload all images immediately for smooth animation (they're optimized WebP now)
   useEffect(() => {
     if (backgroundMode === 'images' && heroImages.length > 0) {
-      console.log(`🔄 Preloading ${heroImages.length} optimized WebP images...`);
+      console.log('🔄 Preloading images for smooth slideshow animation...');
       heroImages.forEach((imageUrl, index) => {
         const img = new Image();
         img.src = imageUrl;
-        img.onload = () => console.log(`✅ Preloaded image ${index + 1}/${heroImages.length}: ${imageUrl}`);
+        img.onload = () => console.log(`   ✅ Image ${index + 1}/${heroImages.length} loaded`);
       });
     }
   }, [backgroundMode, heroImages]);
@@ -158,8 +180,8 @@ export function LandingPage() {
             })
           )}
 
-          {/* VIDEO MODE: Looping video background with lazy loading */}
-          {backgroundMode === 'video' && heroVideos.length > 0 && (
+          {/* VIDEO MODE: Looping video background - randomly selected from available videos */}
+          {backgroundMode === 'video' && selectedVideo && (
             <video
               autoPlay
               loop
@@ -168,7 +190,7 @@ export function LandingPage() {
               loading="lazy"
               preload="metadata"
               className="absolute inset-0 w-full h-full object-cover"
-              src={heroVideos[0]}
+              src={selectedVideo}
             >
               Your browser does not support video playback.
             </video>
