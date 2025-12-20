@@ -1,7 +1,6 @@
 {
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
-    "shadcn",
-    "chrome-devtools"
-  ],
-  "enableAllProjectMcpServers": true
+    "shadcn"
+  ]
 }

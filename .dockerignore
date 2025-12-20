@@ -1,0 +1,50 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+build
+*.log
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env.local
+.env.development
+.env.test
+.env.production.local
+
+# Documentation
+README.md
+CLAUDE.md
+*.md
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# Test files
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__

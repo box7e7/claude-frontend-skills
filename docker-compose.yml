@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: release
+    container_name: momentum-towing
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  # Development service with hot reload
+  dev:
+    image: oven/bun:1
+    container_name: momentum-towing-dev
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: bun --hot src/index.ts
+    environment:
+      - NODE_ENV=development
+    profiles:
+      - dev
