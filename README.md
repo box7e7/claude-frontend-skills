@@ -167,12 +167,27 @@ Cache-Control: public, max-age=31536000, immutable
 - **Touch/swipe support**: All carousels support touch gestures
 - **Reduced padding**: Optimized spacing for smaller screens
 
+### Safari/iOS Video Support
+
+Videos are encoded for Safari/iOS compatibility:
+
+- **H.264 Baseline profile**: Maximum device compatibility
+- **faststart flag**: Moov atom at beginning for streaming
+- **Range request support**: Server returns `206 Partial Content` for Safari
+
+To re-encode videos for Safari:
+```bash
+ffmpeg -i input.mp4 -c:v libx264 -profile:v baseline -level 3.0 \
+  -pix_fmt yuv420p -c:a aac -movflags +faststart -y output.mp4
+```
+
 ### Best Practices
 
 1. **Use WebP format** for all new images (80%+ smaller than PNG/JPG)
 2. **Optimize before upload**: Use `cwebp -q 75 input.jpg -o output.webp`
 3. **Keep images under 500KB** each for optimal load times
 4. **Test on mobile**: Use Chrome DevTools device emulation
+5. **Test videos on Safari**: Ensure Range request support is working
 
 ## Scripts
 

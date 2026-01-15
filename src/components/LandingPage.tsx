@@ -154,9 +154,31 @@ export function LandingPage() {
               loop
               muted
               playsInline
+              preload="auto"
               className="absolute inset-0 w-full h-full object-cover"
-              src={heroVideos[0]}
+              ref={(el) => {
+                if (el) {
+                  // Add webkit-specific attributes for Safari/iOS
+                  el.setAttribute('webkit-playsinline', 'true');
+                  el.setAttribute('x5-playsinline', 'true');
+                  // Force play on Safari/iOS - handles autoplay restrictions
+                  const playPromise = el.play();
+                  if (playPromise !== undefined) {
+                    playPromise.catch(() => {
+                      // Autoplay was prevented, try again on user interaction
+                      const playOnInteraction = () => {
+                        el.play();
+                        document.removeEventListener('touchstart', playOnInteraction);
+                        document.removeEventListener('click', playOnInteraction);
+                      };
+                      document.addEventListener('touchstart', playOnInteraction, { once: true });
+                      document.addEventListener('click', playOnInteraction, { once: true });
+                    });
+                  }
+                }
+              }}
             >
+              <source src={heroVideos[0]} type="video/mp4" />
               Your browser does not support video playback.
             </video>
           )}

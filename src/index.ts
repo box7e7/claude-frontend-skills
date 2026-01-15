@@ -101,17 +101,43 @@ const server = serve({
       return new Response("Not Found", { status: 404 });
     },
 
-    // Serve static videos with cache headers (1 year)
+    // Serve static videos with cache headers and Range support for Safari
     "/videos/*": async (req) => {
       const url = new URL(req.url);
       const filepath = `.${url.pathname}`;
       const file = Bun.file(filepath);
 
       if (await file.exists()) {
-        const response = new Response(file);
-        const headers = new Headers(response.headers);
-        headers.set("Cache-Control", "public, max-age=31536000, immutable");
-        return new Response(response.body, { headers });
+        const fileSize = file.size;
+        const range = req.headers.get("range");
+
+        // Safari requires Range request support for video playback
+        if (range) {
+          const parts = range.replace(/bytes=/, "").split("-");
+          const start = parseInt(parts[0] || "0", 10);
+          const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+          const chunkSize = end - start + 1;
+
+          const headers = new Headers({
+            "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+            "Accept-Ranges": "bytes",
+            "Content-Length": String(chunkSize),
+            "Content-Type": "video/mp4",
+            "Cache-Control": "public, max-age=31536000, immutable",
+          });
+
+          const slice = file.slice(start, end + 1);
+          return new Response(slice, { status: 206, headers });
+        }
+
+        // Non-range request - return full file
+        const headers = new Headers({
+          "Content-Length": String(fileSize),
+          "Content-Type": "video/mp4",
+          "Accept-Ranges": "bytes",
+          "Cache-Control": "public, max-age=31536000, immutable",
+        });
+        return new Response(file, { headers });
       }
       return new Response("Not Found", { status: 404 });
     },

@@ -213,6 +213,33 @@ Gallery images use:
 - Reviews: Stacked layout on mobile, side-by-side on desktop
 - Typography: Consistent `text-3xl md:text-4xl` for section titles, `text-lg` for descriptions
 
+### Safari/iOS Video Compatibility
+
+Videos require special handling for Safari/iOS:
+
+**Video encoding requirements:**
+```bash
+ffmpeg -i input.mp4 -c:v libx264 -profile:v baseline -level 3.0 \
+  -pix_fmt yuv420p -c:a aac -movflags +faststart -y output.mp4
+```
+
+Key flags:
+- `-movflags +faststart`: Moves moov atom to beginning (required for streaming)
+- `-profile:v baseline`: Most compatible H.264 profile for iOS
+- `-level 3.0`: Ensures older Safari compatibility
+
+**Server requirements:**
+- Must support Range requests (`Accept-Ranges: bytes`)
+- Return `206 Partial Content` for Range requests
+- Include `Content-Range` header
+
+**Video element attributes:**
+```tsx
+<video autoPlay loop muted playsInline preload="auto">
+  <source src={videoUrl} type="video/mp4" />
+</video>
+```
+
 ## HTML Imports Pattern
 
 Bun allows direct HTML imports. The server uses:
