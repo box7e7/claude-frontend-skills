@@ -138,7 +138,7 @@ HTML imports are used - `index.html` imports `frontend.tsx` which renders React 
 - Touch/drag support for mobile
 - Auto-play with pause on hover
 
-**To add gallery images:** Drop files in `/gallery/` folder (PNG, JPG, JPEG, GIF, WebP). Files are sorted numerically by filename.
+**To add gallery images:** Drop files in `/gallery/` folder (WebP recommended). Files are sorted numerically by filename.
 
 ### Contact Section
 
@@ -173,6 +173,45 @@ TypeScript path alias `@/*` maps to `src/*`:
 ```typescript
 import { Button } from "@/components/ui/button";
 ```
+
+## Performance Optimizations
+
+### Image Optimization
+
+All images converted to WebP format for 80%+ size reduction:
+
+| Asset | Before | After | Savings |
+|-------|--------|-------|---------|
+| Hero images | 18.3 MB (PNG) | 1.1 MB (WebP) | 94% |
+| Gallery images | 4.6 MB (JPG) | 3.3 MB (WebP) | 30% |
+
+**To convert images:**
+```bash
+cwebp -q 75 input.jpg -o output.webp
+```
+
+### Caching
+
+All static routes include cache headers (1 year):
+```typescript
+headers.set("Cache-Control", "public, max-age=31536000, immutable");
+```
+
+Routes with caching: `/images/*`, `/gallery/*`, `/videos/*`
+
+### Lazy Loading
+
+Gallery images use:
+- `loading="lazy"` - Native browser lazy loading
+- `decoding="async"` - Non-blocking decode
+- `content-visibility: auto` - Skip rendering off-screen content
+- Skeleton placeholders during load
+
+### Mobile Optimizations
+
+- Gallery: Progress bar instead of dots on mobile (`sm:hidden` / `hidden sm:flex`)
+- Reviews: Stacked layout on mobile, side-by-side on desktop
+- Typography: Consistent `text-3xl md:text-4xl` for section titles, `text-lg` for descriptions
 
 ## HTML Imports Pattern
 

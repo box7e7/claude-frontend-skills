@@ -225,9 +225,9 @@ export function LandingPage() {
       <section id="services" className="py-20 bg-white relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Our Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Our Services</h2>
             <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Complete roadside assistance solutions to get you back on the road quickly
             </p>
           </div>
@@ -248,9 +248,9 @@ export function LandingPage() {
       <section id="reviews" className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Customer Reviews</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Customer Reviews</h2>
             <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               See what our satisfied customers have to say about our service
             </p>
           </div>
@@ -265,9 +265,9 @@ export function LandingPage() {
       <section className="py-20 bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Why Choose Momentum?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-blue-900">Why Choose Momentum?</h2>
             <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               We're committed to providing the fastest and most reliable roadside assistance
             </p>
           </div>
@@ -277,7 +277,7 @@ export function LandingPage() {
           <div className="mt-16 bg-white rounded-2xl shadow-xl p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-3xl font-bold mb-6 text-blue-900">Our Commitment to You</h3>
+                <h3 className="text-2xl md:text-3xl font-bold mb-6 text-blue-900">Our Commitment to You</h3>
                 <ul className="space-y-4">
                   <li className="flex items-start gap-3">
                     <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
@@ -334,9 +334,9 @@ export function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Get in Touch</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Get in Touch</h2>
               <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
-              <p className="text-xl text-blue-200">
+              <p className="text-lg text-blue-200">
                 Need immediate assistance or have questions? We're here to help!
               </p>
             </div>

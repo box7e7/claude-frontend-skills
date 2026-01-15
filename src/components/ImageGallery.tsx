@@ -175,9 +175,9 @@ export function ImageGallery({
       <section id="gallery" className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">{title}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">{title}</h2>
             <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
-            <p className="text-xl text-blue-200 max-w-2xl mx-auto">{subtitle}</p>
+            <p className="text-lg text-blue-200 max-w-2xl mx-auto">{subtitle}</p>
           </div>
 
           <div
@@ -266,22 +266,37 @@ export function ImageGallery({
               </div>
             </div>
 
-            {/* Dot Indicators */}
+            {/* Dot Indicators - Show limited dots on mobile */}
             {totalSlides > 1 && (
-              <div className="flex justify-center gap-2 mt-8">
-                {[...Array(totalSlides)].map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      currentSlide === index
-                        ? "w-8 h-3 bg-yellow-400"
-                        : "w-3 h-3 bg-white/30 hover:bg-white/50"
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                    aria-current={currentSlide === index ? "true" : "false"}
-                  />
-                ))}
+              <div className="flex justify-center items-center gap-2 mt-8">
+                {/* On mobile, show progress bar instead of dots when too many slides */}
+                <div className="sm:hidden flex items-center gap-3">
+                  <span className="text-white/70 text-sm font-medium">
+                    {currentSlide + 1} / {totalSlides}
+                  </span>
+                  <div className="w-24 h-1.5 bg-white/20 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-yellow-400 transition-all duration-300 rounded-full"
+                      style={{ width: `${((currentSlide + 1) / totalSlides) * 100}%` }}
+                    />
+                  </div>
+                </div>
+                {/* On larger screens, show dot indicators */}
+                <div className="hidden sm:flex gap-2">
+                  {[...Array(totalSlides)].map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`transition-all duration-300 rounded-full ${
+                        currentSlide === index
+                          ? "w-8 h-3 bg-yellow-400"
+                          : "w-3 h-3 bg-white/30 hover:bg-white/50"
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                      aria-current={currentSlide === index ? "true" : "false"}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </div>

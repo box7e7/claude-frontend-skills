@@ -3,14 +3,17 @@ import index from "./index.html";
 
 const server = serve({
   routes: {
-    // Serve static images
+    // Serve static images with cache headers (1 year)
     "/images/*": async (req) => {
       const url = new URL(req.url);
       const filepath = `.${url.pathname}`;
       const file = Bun.file(filepath);
 
       if (await file.exists()) {
-        return new Response(file);
+        const response = new Response(file);
+        const headers = new Headers(response.headers);
+        headers.set("Cache-Control", "public, max-age=31536000, immutable");
+        return new Response(response.body, { headers });
       }
       return new Response("Not Found", { status: 404 });
     },
@@ -83,26 +86,32 @@ const server = serve({
       return Response.json({ images });
     },
 
-    // Serve static gallery images
+    // Serve static gallery images with cache headers
     "/gallery/*": async (req) => {
       const url = new URL(req.url);
       const filepath = `.${url.pathname}`;
       const file = Bun.file(filepath);
 
       if (await file.exists()) {
-        return new Response(file);
+        const response = new Response(file);
+        const headers = new Headers(response.headers);
+        headers.set("Cache-Control", "public, max-age=31536000, immutable");
+        return new Response(response.body, { headers });
       }
       return new Response("Not Found", { status: 404 });
     },
 
-    // Serve static videos
+    // Serve static videos with cache headers (1 year)
     "/videos/*": async (req) => {
       const url = new URL(req.url);
       const filepath = `.${url.pathname}`;
       const file = Bun.file(filepath);
 
       if (await file.exists()) {
-        return new Response(file);
+        const response = new Response(file);
+        const headers = new Headers(response.headers);
+        headers.set("Cache-Control", "public, max-age=31536000, immutable");
+        return new Response(response.body, { headers });
       }
       return new Response("Not Found", { status: 404 });
     },

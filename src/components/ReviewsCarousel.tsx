@@ -119,13 +119,13 @@ export function ReviewsCarousel() {
       </button>
 
       {/* Review Card */}
-      <div className="px-12">
+      <div className="px-4 sm:px-12">
         <Card className="shadow-xl border-0 bg-white hover:shadow-2xl transition-shadow duration-300">
-          <CardContent className="pt-8 pb-8">
-            <div className="flex items-start gap-6">
+          <CardContent className="pt-6 pb-6 sm:pt-8 sm:pb-8">
+            <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
               {/* Avatar */}
               <div
-                className={`flex-shrink-0 w-16 h-16 ${currentReview.bgColor} rounded-full flex items-center justify-center text-white text-2xl font-bold`}
+                className={`flex-shrink-0 w-12 h-12 sm:w-16 sm:h-16 ${currentReview.bgColor} rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold mx-auto sm:mx-0`}
               >
                 {currentReview.initial}
               </div>
@@ -134,14 +134,14 @@ export function ReviewsCarousel() {
               <div className="flex-1">
                 {/* Name and Time */}
                 <div className="mb-3">
-                  <h3 className="font-bold text-lg text-gray-900">
+                  <h3 className="font-bold text-base sm:text-lg text-gray-900 text-center sm:text-left">
                     {currentReview.name}
                   </h3>
-                  <p className="text-sm text-gray-500">{currentReview.timeAgo}</p>
+                  <p className="text-sm text-gray-500 text-center sm:text-left">{currentReview.timeAgo}</p>
                 </div>
 
                 {/* Star Rating */}
-                <div className="flex gap-1 mb-4">
+                <div className="flex gap-1 mb-4 justify-center sm:justify-start">
                   {[...Array(currentReview.rating)].map((_, index) => (
                     <Star
                       key={index}
@@ -151,7 +151,7 @@ export function ReviewsCarousel() {
                 </div>
 
                 {/* Review Text */}
-                <p className="text-gray-700 leading-relaxed text-base">
+                <p className="text-gray-700 leading-relaxed text-sm sm:text-base text-center sm:text-left">
                   {currentReview.text}
                 </p>
               </div>
