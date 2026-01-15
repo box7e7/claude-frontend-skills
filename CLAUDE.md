@@ -4,7 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **Momentum Towing & Roadside Services** landing page built with Bun, React 19, Tailwind CSS, and shadcn/ui components. It's a marketing website with a dynamic hero background that randomly alternates between image slideshows and video backgrounds.
+This is a **Momentum Towing & Roadside Services** landing page built with Bun, React 19, Tailwind CSS, and shadcn/ui components. It's a marketing website featuring:
+
+- Dynamic hero background (image slideshow or video)
+- Image gallery with carousel and lightbox
+- Interactive service/feature/review carousels
+- Google Maps integration
+- Contact information display
+
+**Business Contact:**
+- Phone: 281-800-7676
+- Email: metroroadsidetowing@gmail.com
+- Address: 8100 Washington Ave, Suite 150G, Houston, TX 77007
+- Hours: 24/7
 
 ## Development Commands
 
@@ -53,12 +65,14 @@ Default to using Bun instead of Node.js:
 Uses `Bun.serve()` with route-based architecture:
 
 **Static file serving:**
-- `/images/*` - Serves images from `./images/` folder
-- `/videos/*` - Serves videos from `./videos/` folder
+- `/images/*` - Serves images from `./images/` folder (hero backgrounds)
+- `/videos/*` - Serves videos from `./videos/` folder (hero backgrounds)
+- `/gallery/*` - Serves images from `./gallery/` folder (gallery section)
 
 **API endpoints:**
 - `/api/images` - Returns JSON list of all images in `/images` folder (auto-scanned with `Bun.Glob`)
 - `/api/videos` - Returns JSON list of all videos in `/videos` folder (auto-scanned with `Bun.Glob`)
+- `/api/gallery` - Returns JSON list of all images in `/gallery` folder (sorted numerically)
 - `/api/hello` - Example API endpoint
 - `/api/hello/:name` - Example parameterized route
 
@@ -103,9 +117,39 @@ HTML imports are used - `index.html` imports `frontend.tsx` which renders React 
 - Use `@/components/ui/*` path alias
 
 **Page Components:**
-- `LandingPage.tsx` - Main landing page with hero + services + features + contact sections
+- `LandingPage.tsx` - Main landing page with all sections (hero, services, gallery, reviews, features, contact, footer)
+- `ImageGallery.tsx` - Gallery carousel with lightbox modal
 - `ServicesCarousel.tsx` - Services showcase carousel
 - `FeaturesCarousel.tsx` - Features/benefits carousel
+- `ReviewsCarousel.tsx` - Customer reviews carousel
+
+### Image Gallery (`src/components/ImageGallery.tsx`)
+
+**Features:**
+- Fetches images from `/api/gallery` on mount
+- Responsive carousel (1/2/3 images based on screen width)
+- Native lazy loading with `loading="lazy"` and `content-visibility: auto`
+- Skeleton placeholders while images load
+- Lightbox modal with:
+  - Click image to open full-size view
+  - Navigation arrows (prev/next)
+  - Keyboard support (←/→ arrows, Escape to close)
+  - Image counter (e.g., "3 / 17")
+- Touch/drag support for mobile
+- Auto-play with pause on hover
+
+**To add gallery images:** Drop files in `/gallery/` folder (PNG, JPG, JPEG, GIF, WebP). Files are sorted numerically by filename.
+
+### Contact Section
+
+**Layout:**
+- Google Maps iframe showing office location (Houston, TX)
+- 4 contact cards: Phone, Email, Address, Hours
+- Dark theme (`from-slate-900 via-blue-900 to-slate-900`)
+
+**Footer:**
+- White background with blue headings
+- Dynamic copyright year: `{new Date().getFullYear()}`
 
 ### Styling
 

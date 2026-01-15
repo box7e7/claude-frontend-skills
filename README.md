@@ -1,35 +1,48 @@
-# Claude Frontend Skills
+# Momentum Towing & Roadside Services
 
-A modern frontend project built with Bun, React 19, Tailwind CSS, and shadcn/ui components. This project demonstrates Claude's frontend development capabilities using the latest web technologies.
+A professional landing page for **Momentum Towing & Roadside Services** built with Bun, React 19, Tailwind CSS, and shadcn/ui components. Features a dynamic hero background, image gallery with lightbox, and interactive carousels.
 
 ## Features
 
-- **Bun Runtime**: Ultra-fast JavaScript runtime with built-in bundling, transpiling, and package management
-- **React 19**: Latest React with improved performance and features
-- **Tailwind CSS 4**: Utility-first CSS framework for rapid UI development
-- **shadcn/ui**: Beautiful, accessible, and customizable component library
-- **TypeScript**: Type-safe development experience
-- **Hot Module Replacement**: Instant feedback during development
-- **HTML Imports**: Direct HTML file imports with automatic bundling
+- **Dynamic Hero Background**: Randomly alternates between image slideshows (Ken Burns effect) and video backgrounds
+- **Image Gallery**: Carousel with lazy loading, lightbox modal, and keyboard navigation
+- **Interactive Carousels**: Services, Features, and Customer Reviews with touch/drag support
+- **Google Maps Integration**: Embedded map showing office location
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Performance Optimized**: Native lazy loading, content-visibility, skeleton placeholders
+
+## Tech Stack
+
+- **Bun Runtime**: Ultra-fast JavaScript runtime with built-in bundling
+- **React 19**: Latest React with improved performance
+- **Tailwind CSS 4**: Utility-first CSS framework
+- **shadcn/ui**: Accessible component library
+- **TypeScript**: Type-safe development
+- **Lucide React**: Icon library
 
 ## Project Structure
 
 ```
 bun-project/
 ├── src/
-│   ├── components/       # React components
-│   │   ├── ui/          # shadcn/ui components
-│   │   ├── LandingPage.tsx
+│   ├── components/           # React components
+│   │   ├── ui/              # shadcn/ui components
+│   │   ├── LandingPage.tsx  # Main page with all sections
+│   │   ├── ImageGallery.tsx # Gallery with carousel & lightbox
+│   │   ├── ServicesCarousel.tsx
 │   │   ├── FeaturesCarousel.tsx
-│   │   └── ServicesCarousel.tsx
-│   ├── lib/             # Utility functions
-│   ├── frontend.tsx     # Main React entry point
-│   ├── index.html       # HTML entry point
-│   ├── index.ts         # Bun server
-│   └── index.css        # Global styles
-├── styles/              # Additional stylesheets
-├── build.ts             # Build configuration
-└── package.json         # Dependencies and scripts
+│   │   └── ReviewsCarousel.tsx
+│   ├── lib/                 # Utility functions
+│   ├── frontend.tsx         # React entry point
+│   ├── index.html           # HTML entry point
+│   ├── index.ts             # Bun server with API routes
+│   └── index.css            # Global styles
+├── gallery/                 # Gallery images (auto-detected)
+├── images/                  # Hero background images
+├── videos/                  # Hero background videos
+├── styles/                  # Additional stylesheets
+├── build.ts                 # Build configuration
+└── package.json             # Dependencies and scripts
 ```
 
 ## Getting Started
@@ -72,51 +85,51 @@ Build the project:
 bun run build
 ```
 
-## Tech Stack
+## API Endpoints
 
-### Core
-- **Bun**: Fast all-in-one JavaScript runtime
-- **React 19**: UI library
-- **TypeScript**: Type safety
+The Bun server provides the following API routes:
 
-### Styling
-- **Tailwind CSS 4**: Utility-first CSS
-- **tw-animate-css**: Animation utilities
-- **class-variance-authority**: CSS variant management
-- **tailwind-merge**: Merge Tailwind classes
+| Endpoint | Description |
+|----------|-------------|
+| `/api/images` | Returns list of hero background images |
+| `/api/videos` | Returns list of hero background videos |
+| `/api/gallery` | Returns list of gallery images (sorted) |
+| `/images/*` | Serves static images |
+| `/videos/*` | Serves static videos |
+| `/gallery/*` | Serves gallery images |
 
-### Components
-- **shadcn/ui**: Accessible component system
-- **Radix UI**: Unstyled accessible components
-- **Lucide React**: Icon library
+## Page Sections
 
-## Development Features
+1. **Hero** - Dynamic background with CTA buttons
+2. **Services** - Carousel showcasing towing services
+3. **Gallery** - Image gallery with lightbox (lazy loaded)
+4. **Reviews** - Customer testimonials carousel
+5. **Features** - Why choose us carousel
+6. **Contact** - Google Map + contact information cards
+7. **Footer** - Quick links and contact details
 
-- **Hot Module Replacement**: Changes reflect instantly
-- **Built-in Bundler**: No need for webpack or vite
-- **TypeScript Support**: Full type checking and IntelliSense
-- **CSS Bundling**: Automatic CSS processing and optimization
-- **HTML Imports**: Import HTML files directly with `Bun.serve()`
+## Contact Information
 
-## Bun-Specific Features
+- **Phone**: 281-800-7676
+- **Email**: metroroadsidetowing@gmail.com
+- **Address**: 8100 Washington Ave, Suite 150G, Houston, TX 77007
+- **Hours**: 24/7
 
-This project leverages Bun's unique capabilities:
+## Adding Media
 
-- Direct HTML file imports for routing
-- Built-in JSX/TSX transpilation
-- Fast package installation and execution
-- Native TypeScript support
-- Optimized bundling and serving
+Media files are auto-detected from folders:
+
+- **Hero Images**: Drop files in `/images/` (PNG, JPG, JPEG, GIF, WebP)
+- **Hero Videos**: Drop files in `/videos/` (MP4, WebM, MOV, AVI)
+- **Gallery Images**: Drop files in `/gallery/` (PNG, JPG, JPEG, GIF, WebP)
+
+No code changes needed - API endpoints scan folders automatically.
 
 ## Scripts
 
 - `bun dev` - Start development server with hot reload
 - `bun start` - Start production server
 - `bun run build` - Build the project
-
-## Contributing
-
-This project demonstrates Claude's frontend development skills. Feel free to explore, modify, and build upon it.
 
 ## License
 

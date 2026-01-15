@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ServicesCarousel } from "./ServicesCarousel";
 import { FeaturesCarousel } from "./FeaturesCarousel";
 import { ReviewsCarousel } from "./ReviewsCarousel";
+import { ImageGallery } from "./ImageGallery";
 import {
   Truck,
   Phone,
@@ -12,7 +13,8 @@ import {
   Clock,
   MapPin,
   Shield,
-  Star
+  Star,
+  Mail
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -198,7 +200,7 @@ export function LandingPage() {
                 className="bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold text-lg px-10 py-7 rounded-lg shadow-2xl hover:shadow-yellow-400/50 transition-all duration-300 hover:scale-105"
               >
                 <Phone className="mr-2 h-5 w-5" />
-                Call Now: (555) 123-4567
+                Call Now: 281-800-7676
               </Button>
               <Button
                 size="lg"
@@ -235,6 +237,12 @@ export function LandingPage() {
         {/* Bottom gradient fade */}
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-slate-50/30 pointer-events-none"></div>
       </section>
+
+      {/* Image Gallery Section */}
+      <ImageGallery 
+        title="Our Work" 
+        subtitle="Browse through our gallery of completed jobs and satisfied customers"
+      />
 
       {/* Customer Reviews Section */}
       <section id="reviews" className="py-20 bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 relative">
@@ -322,135 +330,137 @@ export function LandingPage() {
       </section>
 
       {/* Contact/CTA Section */}
-      <section id="contact" className="py-20 bg-gradient-to-br from-gray-50 via-slate-50 to-white relative">
+      <section id="contact" className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-blue-900">Get in Touch</h2>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Get in Touch</h2>
               <div className="w-24 h-1 bg-yellow-400 mx-auto mb-6"></div>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-blue-200">
                 Need immediate assistance or have questions? We're here to help!
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto">
-              <Card className="border-2 border-blue-600">
-                <CardHeader className="bg-blue-600 text-white py-4">
-                  <CardTitle className="text-xl flex items-center justify-center gap-2">
-                    <Phone className="w-5 h-5" />
-                    Emergency Hotline
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-5 pb-5">
-                  <p className="text-2xl font-bold text-blue-900 mb-2 text-center">(555) 123-4567</p>
-                  <p className="text-muted-foreground text-sm text-center">Available 24 hours a day, 7 days a week</p>
-                  <Button className="mt-4 w-full bg-blue-600 hover:bg-blue-700">
-                    Call Now
-                  </Button>
-                </CardContent>
-              </Card>
+            <div className="max-w-4xl mx-auto">
+              {/* Google Map */}
+              <div className="rounded-2xl overflow-hidden shadow-2xl border-2 border-blue-700/50 mb-8">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55422.5!2d-95.45!3d29.76!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xbedd7f4db4ecbeb6!2s8100%20Washington%20Ave%2C%20Houston%2C%20TX%2077007!5e0!3m2!1sen!2sus!4v1705312800000!5m2!1sen!2sus"
+                  width="100%"
+                  height="350"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Office Location"
+                  className="w-full"
+                />
+              </div>
 
-              <Card className="border-2 border-yellow-400">
-                <CardHeader className="bg-yellow-400 text-blue-900 py-4">
-                  <CardTitle className="text-xl flex items-center justify-center gap-2">
-                    <MapPin className="w-5 h-5" />
-                    Service Area
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-5 pb-5">
-                  <p className="font-bold text-lg mb-2 text-center">Greater Metro Area</p>
-                  <p className="text-muted-foreground text-sm mb-4 text-center">
-                    Serving a 50-mile radius with fast response times
-                  </p>
-                  <Button variant="outline" className="w-full border-yellow-400 text-blue-900 hover:bg-yellow-50">
-                    View Coverage Map
-                  </Button>
-                </CardContent>
-              </Card>
+              {/* Contact Cards Grid */}
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="bg-white/10 backdrop-blur-sm border-blue-700/50 hover:bg-white/15 transition-all duration-300">
+                  <CardContent className="pt-6 pb-6 text-center">
+                    <div className="w-14 h-14 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Phone className="w-7 h-7 text-blue-900" />
+                    </div>
+                    <p className="text-sm text-blue-300 mb-2">Call Us 24/7</p>
+                    <a href="tel:281-800-7676" className="text-xl font-bold text-white hover:text-yellow-400 transition-colors">
+                      281-800-7676
+                    </a>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-white/10 backdrop-blur-sm border-blue-700/50 hover:bg-white/15 transition-all duration-300">
+                  <CardContent className="pt-6 pb-6 text-center">
+                    <div className="w-14 h-14 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Mail className="w-7 h-7 text-blue-900" />
+                    </div>
+                    <p className="text-sm text-blue-300 mb-2">Email Us</p>
+                    <a href="mailto:metroroadsidetowing@gmail.com" className="text-sm font-bold text-white hover:text-yellow-400 transition-colors break-all">
+                      metroroadsidetowing@gmail.com
+                    </a>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-white/10 backdrop-blur-sm border-blue-700/50 hover:bg-white/15 transition-all duration-300">
+                  <CardContent className="pt-6 pb-6 text-center">
+                    <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <MapPin className="w-7 h-7 text-white" />
+                    </div>
+                    <p className="text-sm text-blue-300 mb-2">Office Location</p>
+                    <p className="text-white font-medium text-sm">
+                      8100 Washington Ave<br />
+                      Suite 150G<br />
+                      Houston, TX 77007
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-white/10 backdrop-blur-sm border-blue-700/50 hover:bg-white/15 transition-all duration-300">
+                  <CardContent className="pt-6 pb-6 text-center">
+                    <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Clock className="w-7 h-7 text-white" />
+                    </div>
+                    <p className="text-sm text-blue-300 mb-2">Hours</p>
+                    <p className="text-white font-medium text-sm">
+                      24 Hours a day<br />
+                      7 Days a week<br />
+                      <span className="text-yellow-400 font-bold">Always Available!</span>
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
-
-            <Card className="shadow-2xl">
-              <CardHeader>
-                <CardTitle className="text-2xl">Request a Quote</CardTitle>
-                <CardDescription>
-                  Fill out the form below and we'll get back to you shortly
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Name</label>
-                      <Input placeholder="Your name" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Phone</label>
-                      <Input placeholder="Your phone number" type="tel" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Email</label>
-                    <Input placeholder="Your email" type="email" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Service Needed</label>
-                    <Input placeholder="e.g., Towing, Battery Jump, Tire Change" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Message</label>
-                    <Textarea placeholder="Tell us about your situation..." rows={4} />
-                  </div>
-                  <Button type="submit" size="lg" className="w-full bg-blue-600 hover:bg-blue-700">
-                    Submit Request
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
           </div>
         </div>
         {/* Decorative separator before footer */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-900"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400/50 via-yellow-400 to-yellow-400/50"></div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white py-12 relative border-t-2 border-blue-700/50">
-        {/* Decorative top accent */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-
+      <footer className="bg-white py-12 relative border-t border-gray-200">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4">Momentum Towing</h3>
-              <p className="text-blue-200">
+              <h3 className="text-2xl font-bold mb-4 text-blue-900">Momentum Towing</h3>
+              <p className="text-gray-600">
                 Your trusted partner for roadside assistance and towing services.
               </p>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-blue-200">
-                <li><a href="#services" className="hover:text-yellow-400 transition-colors">Services</a></li>
-                <li><a href="#reviews" className="hover:text-yellow-400 transition-colors">Reviews</a></li>
-                <li><a href="#about" className="hover:text-yellow-400 transition-colors">About Us</a></li>
-                <li><a href="#contact" className="hover:text-yellow-400 transition-colors">Contact</a></li>
+              <h4 className="text-lg font-bold mb-4 text-blue-900">Quick Links</h4>
+              <ul className="space-y-2 text-gray-600">
+                <li><a href="#services" className="hover:text-blue-600 transition-colors">Services</a></li>
+                <li><a href="#gallery" className="hover:text-blue-600 transition-colors">Gallery</a></li>
+                <li><a href="#reviews" className="hover:text-blue-600 transition-colors">Reviews</a></li>
+                <li><a href="#contact" className="hover:text-blue-600 transition-colors">Contact</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-bold mb-4">Contact Info</h4>
-              <ul className="space-y-2 text-blue-200">
+              <h4 className="text-lg font-bold mb-4 text-blue-900">Contact Info</h4>
+              <ul className="space-y-3 text-gray-600">
                 <li className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  (555) 123-4567
+                  <Phone className="w-4 h-4 text-blue-600" />
+                  <a href="tel:281-800-7676" className="hover:text-blue-600 transition-colors">281-800-7676</a>
                 </li>
                 <li className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" />
-                  Metro Area, State
+                  <Mail className="w-4 h-4 text-blue-600" />
+                  <a href="mailto:metroroadsidetowing@gmail.com" className="hover:text-blue-600 transition-colors text-sm">metroroadsidetowing@gmail.com</a>
                 </li>
-                <li>Available 24/7</li>
+                <li className="flex items-start gap-2">
+                  <MapPin className="w-4 h-4 text-blue-600 mt-0.5" />
+                  <span>8100 Washington Ave, Suite 150G<br />Houston, TX 77007</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-blue-600" />
+                  Available 24/7
+                </li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-blue-800 pt-8 text-center text-blue-200">
-            <p>&copy; 2024 Momentum Towing & Roadside Services. All rights reserved.</p>
+          <div className="border-t border-gray-200 pt-8 text-center text-gray-500">
+            <p>&copy; {new Date().getFullYear()} Momentum Towing & Roadside Services. All rights reserved.</p>
           </div>
         </div>
       </footer>

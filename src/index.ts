@@ -63,6 +63,38 @@ const server = serve({
       return Response.json({ videos });
     },
 
+    // API endpoint to list all gallery images
+    "/api/gallery": async () => {
+      const galleryDir = "./gallery";
+      const glob = new Bun.Glob("*.{png,jpg,jpeg,gif,webp}");
+      const images: string[] = [];
+
+      for await (const file of glob.scan(galleryDir)) {
+        images.push(`/gallery/${file}`);
+      }
+
+      // Sort numerically by filename
+      images.sort((a, b) => {
+        const numA = parseInt(a.match(/\/(\d+)\./)?.[1] || "0");
+        const numB = parseInt(b.match(/\/(\d+)\./)?.[1] || "0");
+        return numA - numB;
+      });
+
+      return Response.json({ images });
+    },
+
+    // Serve static gallery images
+    "/gallery/*": async (req) => {
+      const url = new URL(req.url);
+      const filepath = `.${url.pathname}`;
+      const file = Bun.file(filepath);
+
+      if (await file.exists()) {
+        return new Response(file);
+      }
+      return new Response("Not Found", { status: 404 });
+    },
+
     // Serve static videos
     "/videos/*": async (req) => {
       const url = new URL(req.url);
