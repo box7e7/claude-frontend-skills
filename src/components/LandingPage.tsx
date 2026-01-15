@@ -194,11 +194,11 @@ export function LandingPage() {
             </div>
 
             {/* CTA Buttons - Centered with Animation */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 animate-fadeIn" style={{ animationDelay: '0.9s', animationFillMode: 'both' }}>
-              <a href="tel:281-800-7676">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 animate-fadeIn w-full max-w-md mx-auto sm:max-w-none" style={{ animationDelay: '0.9s', animationFillMode: 'both' }}>
+              <a href="tel:281-800-7676" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold text-lg px-10 py-7 rounded-lg shadow-2xl hover:shadow-yellow-400/50 transition-all duration-300 hover:scale-105"
+                  className="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold text-lg px-10 py-7 rounded-lg shadow-2xl hover:shadow-yellow-400/50 transition-all duration-300 hover:scale-105"
                 >
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now: 281-800-7676
@@ -206,7 +206,7 @@ export function LandingPage() {
               </a>
               <Button
                 size="lg"
-                className="bg-white text-blue-900 hover:bg-blue-50 font-bold text-lg px-10 py-7 rounded-lg shadow-xl transition-all duration-300 hover:scale-105"
+                className="w-full sm:w-auto bg-white text-blue-900 hover:bg-blue-50 font-bold text-lg px-10 py-7 rounded-lg shadow-xl transition-all duration-300 hover:scale-105"
               >
                 Request a Quote
               </Button>
